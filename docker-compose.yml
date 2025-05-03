@@ -13,7 +13,8 @@ services:
       - 3306:3306
     restart: unless-stopped
   wordpress:
-    image: wordpress:latest
+    # image: wordpress:latest
+    build: .
     ports:
       - "8080:80"
     depends_on:
