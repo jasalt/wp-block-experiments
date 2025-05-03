@@ -43,17 +43,21 @@ else
 		echo "Symlink already exists"
 	fi
 
-	# 	wp plugin activate scittle-wp-block --allow-root
+	wp plugin activate scittle-wp-block --allow-root
+
+	# TODO Put plugin into template / a page (set to be home page)
+
 
 	date > /COMPOSE_INITIALIZED
 
-	echo "                    _         _            , __    , __  _             _ "
-	echo "  ()      o        | |       (_|   |   |_//|/  \  /|/  \| |           | |"
-	echo "  /\  __    _|__|_ | |  _      |   |   |   |___/   | __/| |  __   __  | |"
-	echo " /  \/    |  |  |  |/  |/      |   |   |   |       |   \|/  /  \_/    |/_)"
-	echo "/(__/\___/|_/|_/|_/|__/|__/     \_/ \_/    |       |(__/|__/\__/ \___/| \_/"
-	echo ""
 
+
+	# echo "                    _         _            , __    , __  _             _ "
+	# echo "  ()      o        | |       (_|   |   |_//|/  \  /|/  \| |           | |"
+	# echo "  /\  __    _|__|_ | |  _      |   |   |   |___/   | __/| |  __   __  | |"
+	# echo " /  \/    |  |  |  |/  |/      |   |   |   |       |   \|/  /  \_/    |/_)"
+	# echo "/(__/\___/|_/|_/|_/|__/|__/     \_/ \_/    |       |(__/|__/\__/ \___/| \_/"
+	# echo ""
 	# echo "Setup completed! See the site at http://localhost:8080/"
 	# echo ""
 	# echo "Scittle gutenberg block should render on the front-page."
@@ -66,20 +70,7 @@ else
 
 fi
 
-# Add your custom logic here
-# For example:
-# - Install plugins
-# - Configure settings
-# - Run database operations
-# etc.
-
-# If the original command was to start apache/php-fpm, you'll need to exec it again
-# because the original entrypoint would have exec'd it (replacing itself)
-# if [[ "${ORIGINAL_ARGS[0]}" == apache2* ]] || [ "${ORIGINAL_ARGS[0]}" = 'php-fpm' ]; then
-#   echo "Starting web server..."
-#   exec "${ORIGINAL_ARGS[@]}"
-# fi
-
+# Run server or given arguments like original entrypoint
 if [ $# -eq 0 ]; then
     exec apache2-foreground
 else
