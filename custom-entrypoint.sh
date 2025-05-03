@@ -43,11 +43,13 @@ else
 
 	echo `date` > /COMPOSE_INITIALIZED
 
-	# echo ""
-    # echo " __               __                       _          "
-    # echo "(_  _o_|__|_| _  /__  _|_ _ ._ |_  _ .__  |_)| _  _|  "
-    # echo "__)(_| |_ |_|(/_ \_||_||_(/_| ||_)(/_|(_| |_)|(_)(_|< "
-	# echo ""
+	echo "                    _         _            , __    , __  _             _ "
+	echo "  ()      o        | |       (_|   |   |_//|/  \  /|/  \| |           | |"
+	echo "  /\  __    _|__|_ | |  _      |   |   |   |___/   | __/| |  __   __  | |"
+	echo " /  \/    |  |  |  |/  |/      |   |   |   |       |   \|/  /  \_/    |/_)"
+	echo "/(__/\___/|_/|_/|_/|__/|__/     \_/ \_/    |       |(__/|__/\__/ \___/| \_/"
+	echo ""
+
 	# echo "Setup completed! See the site at http://localhost:8080/"
 	# echo ""
 	# echo "Scittle gutenberg block should render on the front-page."
