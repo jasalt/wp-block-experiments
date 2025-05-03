@@ -12,11 +12,11 @@ services:
     ports:
       - 3306:3306
     restart: unless-stopped
-  wordpress:
-    # image: wordpress:latest
+  wp:
     build: .
+    command: bash /compose-init.d/post-init.sh  # overrides original Dockerfile
     ports:
-      - "8080:80"
+      - "8080:80"  # modify post-init.sh if changing port
     depends_on:
       - db
     restart: always
@@ -27,6 +27,7 @@ services:
       WORDPRESS_DB_NAME: wordpress
     volumes:
       - wordpress_data:/var/www/html
+      - ./compose-init.d:/compose-init.d
 
 volumes:
   db_data:
