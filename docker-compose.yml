@@ -28,7 +28,7 @@ services:
     volumes:
       - wordpress_data:/var/www/html
       - ./custom-entrypoint.sh:/custom-entrypoint.sh
-      - .:/mnt/scittle-gutenberg-block
+      - .:/mnt/scittle-wp-block
 
 volumes:
   db_data:
