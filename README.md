@@ -1,3 +1,47 @@
+# Scittle WP Block
+
+```
+   	   	   	   	   	_  	   	  _	   	   	   , __	   , __	 _ 	   	   	   _
+  ()   	  o	   	   | | 	   	 (_|   |   |_//|/  \  /|/  \| |	   	   	  |	|
+  /\  __   	_|__|_ | | 	_  	   |   |   |   |___/   | __/| |	 __	  __  |	|
+ / 	\/ 	  |	 | 	|  |/  |/  	   |   |   |   |   	   |   \|/ 	/  \_/ 	  |/_)
+/(__/\___/|_/|_/|_/|__/|__/	   	\_/	\_/	   |   	   |(__/|__/\__/ \___/|	\_/
+
+```
+
+Basic WordPress "Gutenberg" Block Editor featuring ClojureScript
+ClojureScript extending Wysiwyg editor 
+
+
+
+## What is a WordPress block?
+Layout snippet with graphical CMS user interface based on WordPress "Gutenberg" ReactJS editor.
+
+Code:
+<!-- wp:my-plugin/scittle-block {"textContent":"FOO text here","isBold":true} /-->
+Editor view:
+<screenshot>
+
+Javascript editor saves block properties to database.
+PHP renders it on server-side for viewers.
+
+## What is Scittle
+SCI
+Squint
+
+Scittle is 
+
+SCI runs when page is loaded, translating CLJS into Javascript on the fly.
+It has performance penalty which might 
+
+## Compilation (TODO)
+Squint is a transpiler.
+
+Comp
+
+
+# Old readme
+
 WordPress plugin skeleton made with [Phel](https://phel-lang.org/) lisp. Adds admin widget that interfaces with WordPress database and renders view using [hiccup](https://github.com/weavejester/hiccup) style [Phel HTML library](https://phel-lang.org/documentation/html-rendering/).
 
 ![Image of WordPress 6.6.1 Admin Dashboard with this plugin installed](demo.png "WordPress 6.6.1 Admin Dashboard with this plugin installed")
