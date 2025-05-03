@@ -28,18 +28,22 @@ else
 
 	echo "Installing WP"
 
-	wp core install --allow-root --url=localhost:8080 --title="Scittle Gutenberg Block Demo Site" --admin_user=admin --admin_password=password --admin_email=example@example.com
+	wp core install --allow-root --url=localhost:8080 \
+	   --title="Scittle WP Block Demo Site" --admin_user=admin \
+	   --admin_password=password --admin_email=example@example.com
+
+	# Not necessary but added so Apache doesn't make noise on startup
+	echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 	# Symlink plugin folder to correct place inside container
-	if [ ! -L "/var/www/html/wp-content/plugins/scittle-gutenberg-block" ]; then
-		ln -s /mnt/scittle-gutenberg-block /var/www/html/wp-content/plugins/
+	if [ ! -L "/var/www/html/wp-content/plugins/scittle-wp-block" ]; then
+		ln -s /mnt/scittle-wp-block /var/www/html/wp-content/plugins/
 		echo "Created symlink"
 	else
 		echo "Symlink already exists"
-
 	fi
 
-	# 	wp plugin activate scittle-gutenberg-block --allow-root
+	# 	wp plugin activate scittle-wp-block --allow-root
 
 	echo `date` > /COMPOSE_INITIALIZED
 
