@@ -23,10 +23,9 @@ else
 	echo "Running post-init.sh"
 
 	echo "Waiting 10 seconds for MariaDB before installation"
-	sleep 10
-	# TODO should wait for db?
+	sleep 10  # TODO more elegant ways?
 
-	echo "Installing WP"
+	echo "Setting up WP installation with demo credentials"
 
 	wp core install --allow-root --url=localhost:8080 \
 	   --title="Scittle WP Block Demo Site" --admin_user=admin \
