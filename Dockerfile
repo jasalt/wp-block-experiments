@@ -13,15 +13,19 @@ RUN apt-get update && \
 	apt-get install -y less vim-tiny
 	# && rm -rf /var/lib/apt/lists/* # clears package index to free space
 
+
 # Install XDebug https://xdebug.org/docs/install#pecl
+
 RUN pecl channel-update pecl.php.net
 RUN pecl install xdebug
+RUN docker-php-ext-enable xdebug
 
 
 # Install WP-CLI
 # https://make.wordpress.org/cli/handbook/guides/installing/
 
 WORKDIR /usr/local/bin
+
 RUN curl -o wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp
 
