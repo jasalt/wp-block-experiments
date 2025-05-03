@@ -45,7 +45,7 @@ else
 
 	# 	wp plugin activate scittle-wp-block --allow-root
 
-	echo `date` > /COMPOSE_INITIALIZED
+	date > /COMPOSE_INITIALIZED
 
 	echo "                    _         _            , __    , __  _             _ "
 	echo "  ()      o        | |       (_|   |   |_//|/  \  /|/  \| |           | |"
