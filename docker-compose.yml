@@ -14,7 +14,7 @@ services:
     restart: unless-stopped
   wp:
     build: .
-    command: bash /compose-init.d/post-init.sh  # overrides original Dockerfile
+    entrypoint: /custom-entrypoint.sh
     ports:
       - "8080:80"  # modify post-init.sh if changing port
     depends_on:
@@ -27,7 +27,8 @@ services:
       WORDPRESS_DB_NAME: wordpress
     volumes:
       - wordpress_data:/var/www/html
-      - ./compose-init.d:/compose-init.d
+      - ./custom-entrypoint.sh:/custom-entrypoint.sh
+      - .:/mnt/scittle-gutenberg-block
 
 volumes:
   db_data:
