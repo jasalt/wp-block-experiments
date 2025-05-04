@@ -5,6 +5,8 @@
     var PanelBody = components.PanelBody;
     var InspectorControls = blockEditor.InspectorControls;
     var useBlockProps = blockEditor.useBlockProps;
+	var ServerSideRender = wp.serverSideRender;
+
 
 	console.log("register phel block");
 
@@ -37,11 +39,15 @@
                         setAttributes({ textContent: value });
                     }
                 }),
-                el('div', { className: 'preview' },
-                    attributes.isBold
-                        ? el('strong', {}, attributes.textContent)
-                        : el('p', {}, attributes.textContent)
-                )
+                // el('div', { className: 'preview' },
+                //     attributes.isBold
+                //         ? el('strong', {}, attributes.textContent)
+                //         : el('p', {}, attributes.textContent)
+                // )
+				el(ServerSideRender, {
+                    block: 'my-plugin/phel-scittle-block',
+                    attributes: attributes
+                })
             ]);
         },
 

@@ -13,7 +13,7 @@ add_action('init', function (){
 	wp_register_script(
 		'phel-scittle-block-editor',
 		plugins_url('block.js', __FILE__),
-		array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components'),
+		array('wp-server-side-render', 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components'),  // TODO import 'wp-server-side-render',  here ?
 		filemtime(plugin_dir_path(__FILE__) . 'block.js')
 	);
 	wp_enqueue_script('phel-scittle-block-editor');
