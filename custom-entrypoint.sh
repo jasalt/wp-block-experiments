@@ -34,22 +34,9 @@ else
 	# Not necessary but added so Apache doesn't make noise on startup
 	echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-	# Symlink plugin folder to correct place inside container
-	if [ ! -L "/var/www/html/wp-content/plugins/scittle-wp-block" ]; then
-		ln -s /mnt/scittle-wp-block /var/www/html/wp-content/plugins/
-		echo "Created symlink"
-	else
-		echo "Symlink already exists"
-	fi
-
 	wp plugin activate scittle-wp-block --allow-root
 
-	# TODO Put plugin into template / a page (set to be home page)
-
-
 	date > /COMPOSE_INITIALIZED
-
-
 
 	# echo "                    _         _            , __    , __  _             _ "
 	# echo "  ()      o        | |       (_|   |   |_//|/  \  /|/  \| |           | |"
