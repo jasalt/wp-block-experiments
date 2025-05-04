@@ -36,6 +36,14 @@ else
 
 	wp plugin activate scittle-wp-block --allow-root
 
+	wp post create --post_status=publish --allow-root \
+	   --post_title='Scittle demo post' --post_content='
+         <!-- wp:paragraph --><p>
+           <a href="http://localhost:8080/wp-admin/post.php?post=4&amp;action=edit">Login &amp; edit</a></p>
+         <!-- /wp:paragraph -->
+         <!-- wp:my-plugin/scittle-block
+           {"textContent":"Hello from ClojureScript (Scittle) block! Edit to see how it works."} /-->'
+
 	date > /COMPOSE_INITIALIZED
 
 	# echo "                    _         _            , __    , __  _             _ "
