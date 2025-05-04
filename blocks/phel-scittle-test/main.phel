@@ -1,0 +1,58 @@
+(ns phel-scittle-block\main
+  (:require phel\html :refer [html]))
+
+(defn render-phel-scittle-block [attrs]
+  (html [:div {:class "phel-scittle-block"}]
+        [:h1 "This is rendered in Phel"])
+  )
+(php/error_log "$$$$$$$$ Hooking PHEL Registration SCRIPT")
+(php/add_action
+ "init"
+ (fn []
+
+   ## (php/error_log "######### REGISTERING PHEL BLOCK SCRIPT")
+   ## (php/error_log (str "######### LOAD FROM: " (php/plugins_url "scittle-wp-block/blocks/phel-scittle-test/block.js")))
+
+   ## (php/wp_register_script
+   ##  "phel-scittle-block-editor" "/wp-content/plugins/scittle-wp-block/blocks/phel-scittle-test/block.js"
+   ##  (to-php-array ["wp-blocks" "wp-element" "wp-editor" "wp-components"])
+   ##  )
+
+
+   ## wp_register_script(
+   ##      'no-build-block-editor',
+   ##      plugins_url('block.js', __FILE__),
+   ##      array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components'),
+   ##      filemtime(plugin_dir_path(__FILE__) . 'block.js')
+   ##  );
+
+   (php/register_block_type
+    "my-plugin/phel-scittle-block"
+    (to-php-array {"editor_script" "phel-scittle-block-editor"
+                   "render_callback" render-phel-scittle-block
+                   "attributes"
+                   (to-php-array
+                    {"textContent" (to-php-array {"type" "string"
+                                                  "default" "Phel default content"})
+                     "isBold" (to-php-array {"type" "bool"
+                                             "default" false})})
+                   })
+    )
+
+   ## register_block_type('my-plugin/no-build-block', array(
+   ##      'editor_script' => 'no-build-block-editor',
+   ##      'render_callback' => 'render_no_build_block',
+   ##      'attributes' => array(
+   ##          'textContent' => array(
+   ##              'type' => 'string',
+   ##              'default' => 'Your text here'
+   ##          ),
+   ##          'isBold' => array(
+   ##              'type' => 'boolean',
+   ##              'default' => false
+   ##          )
+   ##      )
+   ##  ));
+
+
+   ))
