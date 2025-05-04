@@ -59,6 +59,8 @@ function register_scittle_block() {
 	wp_add_inline_script('scittle-block-editor-runner',
 		'(function(){window.scittle.core.eval_script_tags([document.getElementById("scittle-block-editor-cljs-js")]);})();');
 
+	// DOC: https://developer.wordpress.org/reference/functions/register_block_type/
+
     register_block_type('my-plugin/scittle-block', [
         'editor_script' => 'scittle-block-editor-runner',
         'render_callback' => 'render_scittle_block',
