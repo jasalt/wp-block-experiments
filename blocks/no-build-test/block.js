@@ -5,6 +5,7 @@
     var PanelBody = components.PanelBody;
     var InspectorControls = blockEditor.InspectorControls;
     var useBlockProps = blockEditor.useBlockProps;
+	var ServerSideRender = wp.serverSideRender;
 
     blocks.registerBlockType('my-plugin/no-build-block', {
         title: 'No Build Block',
@@ -35,11 +36,19 @@
                         setAttributes({ textContent: value });
                     }
                 }),
-                el('div', { className: 'preview' },
-                    attributes.isBold
-                        ? el('strong', {}, attributes.textContent)
-                        : el('p', {}, attributes.textContent)
-                )
+
+				// Render preview in place with JS
+                // el('div', { className: 'preview' },
+                //     attributes.isBold
+                //         ? el('strong', {}, attributes.textContent)
+                //         : el('p', {}, attributes.textContent)
+                // )
+
+				// Render preview with PHP
+				el(ServerSideRender, {
+                    block: 'my-plugin/no-build-block',
+					attributes: attributes
+                })
             ]);
         },
 
