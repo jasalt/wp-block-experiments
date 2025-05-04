@@ -3,7 +3,7 @@
 TODO 
 - documentation is in progress
 - blocks/scittle-test works (vanilla php + clojurescript)
-- blocks/phel-scittle-test is 75% in progress, does not render fresh attrs (phel server-side rendering + clojurescript)
+- blocks/phel-scittle-test is 75% in progress, does not render fresh attrs (phel server-side rendering + clojurescript) see README.md in the folder.
 
 
 ## What is a WordPress block?
@@ -29,6 +29,8 @@ It has performance penalty which can be avoided by transpiling JS ahead-of-time 
 
 ## What is Reagent?
 Reagent is popular and stable ReactJS wrapper https://github.com/reagent-project/reagent. There are a couple newer alternatives such as https://github.com/pitch-io/uix and https://github.com/cjohansen/replicant which might be interesting also but they didn't have Squint examples yet available.
+
+There's a couple variations of the block.cljs in blocks/scittle-test/misc without Reagent and with more complicated setup with atom for state management.
 
 ## Ahead-of-time transpilation with Squint (TODO)
 Squint https://github.com/squint-cljs/squint can transpile CLJS so client can be served simply Javascript.
