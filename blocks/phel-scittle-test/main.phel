@@ -3,7 +3,10 @@
 
 (defn render-phel-scittle-block [attrs]
   (html [:div {:class "phel-scittle-block"}]
-        [:h1 "This is rendered in Phel"])
+        [:h1 "This is rendered in Phel"]
+        [:p "textContent: " (get attrs "textContent")]
+        [:p "isBold: " (if (get attrs "isBold") "TRUE" "FALSE") " type: " (type (get attrs "isBold"))] # not outputting correct
+        )
   )
 (php/error_log "$$$$$$$$ Hooking PHEL Registration SCRIPT")
 (php/add_action
