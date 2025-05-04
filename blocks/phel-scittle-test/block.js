@@ -46,7 +46,7 @@
                 // )
 				el(ServerSideRender, {
                     block: 'my-plugin/phel-scittle-block',
-                    attributes: attributes
+					attributes: attributes  // TODO this does not get received
                 })
             ]);
         },
