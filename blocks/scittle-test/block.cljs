@@ -27,7 +27,7 @@
                          blockProps (useBlockProps)
                          textContent (or (.-textContent attributes) "")
                          isBold (or (.-isBold attributes) false)]
-                     
+
                      ;; Create the component with Reagent hiccup syntax
                      (r/as-element
                       [:div (js->clj blockProps)
@@ -39,7 +39,7 @@
                            :checked isBold
                            :onChange (fn [value]
                                        (setAttributes #js {:isBold value}))}]]]
-                       
+
                        ;; Text Control
                        [:> TextControl
                         {:key "text-control"
@@ -47,7 +47,7 @@
                          :value textContent
                          :onChange (fn [value]
                                      (setAttributes #js {:textContent value}))}]
-                       
+
                        ;; Preview
                        [:div {:key "preview" :className "preview"}
                         (if isBold
