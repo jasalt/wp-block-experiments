@@ -2,6 +2,8 @@
 
 Block that uses Phel for SSR with it's Hiccup-like syntax and Scittle with Reagent Hiccup dialect for frontend.
 
+To use this, run `composer install` in the directory.
+
 ## Known issues
 
 ### Phel should be built ahead of time to not affect performance so much
