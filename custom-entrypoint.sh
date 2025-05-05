@@ -22,6 +22,11 @@ if [ -f "/COMPOSE_INITIALIZED" ]; then
 else
 	echo "Running post-init.sh"
 
+	cd /var/www/html/wp-content/plugins/scittle-wp-block
+	composer install
+
+	cd /var/www/html/
+
 	echo "Waiting 10 seconds for MariaDB before installation"
 	sleep 10  # TODO more elegant ways?
 
