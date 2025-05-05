@@ -4,10 +4,9 @@
  * Provides server-side (PHP) rendering function for the block HTML.
  */
 
-use Phel\Phel;
+// Requires Composer autoload.php to have been run previously
 
-$projectRootDir = __DIR__ . '/';
-require $projectRootDir . 'vendor/autoload.php';
+use Phel\Phel;
 
 add_action('init', function (){
 	wp_register_script(
