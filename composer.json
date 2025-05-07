@@ -1,5 +1,6 @@
 {
     "require": {
-        "phel-lang/phel-lang": "0.16.0"
+        "phel-lang/phel-lang": "0.16.0",
+        "timber/timber": "^2.3"
     }
 }
