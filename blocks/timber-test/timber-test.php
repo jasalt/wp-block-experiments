@@ -3,9 +3,9 @@
  * Plugin Name: Timber Test Block
  */
 
-// Create a new block based on `no-build-test` called `timber-test`.
-// It should have same functionality but use Timber / Twig rendering engine.
-// In render_callback fn use `Timber::render(timber-test.twig', $context);` to render the .twig template.
+// Based on `no-build-test` called `timber-test`.
+// Has same functionality but uses Timber / Twig rendering engine.
+// In render_callback fn uses `Timber::compile(timber-test.twig', $context);` to compile the .twig template.
 
 use Timber\Timber;
 
@@ -14,24 +14,24 @@ function register_timber_test_block() {
     wp_register_script(
         'timber-test-block-editor',
         plugins_url('block.js', __FILE__),
-        array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components'),
+        ['wp-blocks', 'wp-element', 'wp-editor', 'wp-components'],
         filemtime(plugin_dir_path(__FILE__) . 'block.js')
     );
 
-    register_block_type('my-plugin/timber-test-block', array(
+    register_block_type('my-plugin/timber-test-block', [
         'editor_script' => 'timber-test-block-editor',
         'render_callback' => 'render_timber_test_block',
-        'attributes' => array(
-            'textContent' => array(
+        'attributes' => [
+            'textContent' => [
                 'type' => 'string',
                 'default' => 'Your text here'
-            ),
-            'isBold' => array(
+            ],
+            'isBold' => [
                 'type' => 'boolean',
                 'default' => false
-            )
-        )
-    ));
+            ]
+        ]
+    ]);
 }
 add_action('init', 'register_timber_test_block');
 
@@ -42,7 +42,7 @@ function render_timber_test_block($attributes) {
 
 	$context = Timber::context();
 
-    $context["attributes"] = [
+    $context['attributes'] = [
         'text' => $text,
         'is_bold' => $is_bold
     ];
