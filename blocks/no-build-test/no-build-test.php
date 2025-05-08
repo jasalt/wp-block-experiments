@@ -3,8 +3,6 @@
  * Plugin Name: No Build Block
  */
 
-error_log("Load No Build Block");
-
 // Register the block
 function register_no_build_block() {
     wp_register_script(
