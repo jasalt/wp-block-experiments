@@ -48,7 +48,7 @@
                     
                     preview = el('div', { 
                         className: 'twigjs-preview',
-                        dangerouslySetInnerHTML: { __html: renderedHtml }
+                        dangerouslySetInnerHTML: { __html: renderedHtml }  // NOTE: no auto-escape
                     });
                 } catch (error) {
                     console.error('Error rendering Twig template:', error);
