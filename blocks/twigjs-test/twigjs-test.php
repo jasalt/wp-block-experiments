@@ -60,5 +60,5 @@ function render_twigjs_test_block($attributes) {
         'is_bold' => $is_bold
     ];
     
-    return Timber::render('template.twig', $context);
+    return Timber::render('template.twig', $context);  // TODO compile to avoid prints before editor renders?
 }
