@@ -7,10 +7,10 @@ use Timber\Timber;
 
 // Register the block
 function register_twigjs_test_block() {
-    // Register Twig.js script from CDN
+    // Register Twig.js script from local static directory
     wp_register_script(
         'twigjs-library',
-		'https://unpkg.com/twig@1.17.1/twig.min.js',
+        plugins_url('static/twig_1.17.1.min.js', dirname(plugin_dir_path(__FILE__))),
         [],
         '1.17.1'
     );
