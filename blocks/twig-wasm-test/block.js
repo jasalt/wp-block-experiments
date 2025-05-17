@@ -53,7 +53,16 @@
 
 						if (typeof window.php == 'undefined') {
 							console.log("Initialize PhpWeb");
-							window.php = new PhpWeb({});
+
+							const response = fetch('/wp-content/plugins/wp-block-experiments/vendor-files.json').then(response => console.log(response.json()));
+							//const vendorData = response.json();
+							//const vendorFiles = Array.isArray(vendorData) ? vendorData : (vendorData ? vendorData : []);
+
+							window.php = new PhpWeb({
+								//files: vendorFiles
+							});
+
+
 							php.addEventListener('output',
 								(event) => console.log(event.detail));
 							php.addEventListener('error',
