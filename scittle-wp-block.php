@@ -15,3 +15,4 @@ require $projectRootDir . 'blocks/no-build-test/no-build-test.php';
 require $projectRootDir . 'blocks/phel-scittle-test/phel-scittle-test.php';
 require $projectRootDir . 'blocks/timber-test/timber-test.php';
 require $projectRootDir . 'blocks/twigjs-test/twigjs-test.php';
+require $projectRootDir . 'blocks/twig-wasm-test/twig-wasm-test.php';
