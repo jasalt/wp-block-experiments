@@ -1,8 +1,4 @@
 <?php
-/**
- * Plugin Name: TwigJS Test Block
- */
-
 use Timber\Timber;
 
 // Register the block
@@ -14,9 +10,12 @@ function register_twig_wasm_test_block() {
         [],
 		filemtime(__FILE__));
 
-	wp_enqueue_script_module(
-		'php-wasm-block-editor-initializer',
-		'', [], false);
+	// TODO possible to narrow down enqueue for only sites using WASM block?
+	add_action('enqueue_block_editor_assets', function(){
+		wp_enqueue_script_module(
+			'php-wasm-block-editor-initializer',
+			'', [], false);
+	});
 
     wp_register_script(
         'twig-wasm-test-block-editor',
