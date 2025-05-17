@@ -13,8 +13,7 @@ function register_twig_wasm_test_block() {
 	// TODO possible to narrow down enqueue for only sites using WASM block?
 	add_action('enqueue_block_editor_assets', function(){
 		wp_enqueue_script_module(
-			'php-wasm-block-editor-initializer',
-			'', [], false);
+		'php-wasm-block-editor-initializer', '', [], true);
 	});
 
     wp_register_script(
