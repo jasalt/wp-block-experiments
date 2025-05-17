@@ -53,15 +53,22 @@ function render_twig_wasm_test_block($attributes) {
     $text = $attributes['textContent'] ?? 'Default text';
     $is_bold = $attributes['isBold'] ?? false;
 
-	$loader = new \Twig\Loader\ArrayLoader([
-        'index' => 'Hello {{ name }}!'
+	// ArrayLoader can work better if template comes as fn argument
+	//$loader = new \Twig\Loader\ArrayLoader([
+    //    'index' => 'Hello {{ name }}!'
+    //]);
+	//return $twig->render('index', ['name' => $text]);
+
+	$loader = new \Twig\Loader\FilesystemLoader([
+        __DIR__
     ]);
-    $twig = new \Twig\Environment($loader);
+
+	$twig = new \Twig\Environment($loader);
 
 	$context['attributes'] = [
         'text' => $text,
         'is_bold' => $is_bold
     ];
 
-	return $twig->render('index', ['name' => $text]);
+	return $twig->render('template.twig', $context);
 }
