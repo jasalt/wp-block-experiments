@@ -1,7 +1,6 @@
 services:
   db:
     image: lscr.io/linuxserver/mariadb:latest
-    container_name: mariadb
     environment:
       PUID: 1000
       PGID: 1000
