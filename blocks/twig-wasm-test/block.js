@@ -51,9 +51,20 @@
 						console.log("WASM module loaded");
 						// TODO Init Wasm if not inited
 
+						if (typeof window.php == 'undefined') {
+							console.log("Initialize PhpWeb");
+							window.php = new PhpWeb({});
+							php.addEventListener('output',
+								(event) => console.log(event.detail));
+							php.addEventListener('error',
+								(event) => console.log(event.detail));
+							php.run("HELLO FROM PHP");
+						}
+
+
 						// if (window.php) {
 						// } else {
-						// 	window.php = new PhpWeb({});
+						//
 						// }
 						// .render({
 						//     attributes: {
