@@ -1,4 +1,6 @@
 (function(blocks, element, blockEditor, components) {
+
+
     var el = element.createElement;
     var TextControl = components.TextControl;
     var ToggleControl = components.ToggleControl;
@@ -11,6 +13,8 @@
     var templateUrl = twigWasmTestBlockData.templateUrl;
     var template = null;
 
+
+
     // Fetch the Twig template
     fetch(templateUrl)
         .then(function(response) {
@@ -18,9 +22,10 @@
         })
         .then(function(templateContent) {
 			// TODO call function published from WASM
-            template = Twig.twig({
-                data: templateContent
-            });
+            // template = Twig.twig({
+            //     data: templateContent
+            // });
+			template = templateContent;
         })
         .catch(function(error) {
             console.error('Error loading Twig template:', error);
@@ -41,13 +46,19 @@
 
             if (template) {
                 try {
-					// TODO render via Twig in WASM
-                    var renderedHtml = template.render({
-                        attributes: {
-                            text: attributes.textContent,
-                            is_bold: attributes.isBold
-                        }
-                    });
+                    var renderedHtml = template;
+
+					renderedHtml += attributes.textContent;
+					renderedHtml += attributes.isBold;
+
+					// TOOD run WASM render here
+
+				    // .render({
+                    //     attributes: {
+                    //         text: attributes.textContent,
+                    //         is_bold: attributes.isBold
+                    //     }
+                    // });
 
                     preview = el('div', {
                         className: 'twigjs-preview',
@@ -80,12 +91,14 @@
                 }),
 
                 // Client-side preview using Twig.js
-                // preview
+                preview
+
 				// Render preview with PHP
-				el(ServerSideRender, {
-                    block: 'my-plugin/twig-wasm-test-block',
-					attributes: attributes
-                })
+				// el(ServerSideRender, {
+                //     block: 'my-plugin/twig-wasm-test-block',
+				// 	attributes: attributes
+                // })
+
             ]);
         },
 
