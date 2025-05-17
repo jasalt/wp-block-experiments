@@ -33,7 +33,8 @@
         })
         .then(function(vendorFiles) {
 			console.log("LOADED VENDOR FILES")
-			vendorFiles = vendorFiles;
+			window.vendorFiles = vendorFiles;
+			vendorFiles = vendorFiles; // HACK window global
         })
         .catch(function(error) {
             console.error('Error loading vendor files:', error);
@@ -57,7 +58,7 @@
                 try {
 
 					if (typeof window.PhpWeb === 'undefined'){
-						console.log("WASM module not loaded");
+						console.log("WASM module or vendor files not loaded");
 
 						var renderedHtml = template;
 						renderedHtml += attributes.textContent;
@@ -67,18 +68,20 @@
 						console.log("WASM module loaded");
 						// TODO Init Wasm if not inited
 
-						if (typeof window.php == 'undefined') {
+						if (typeof window.php == 'undefined' && window.vendorFiles) {
 							console.log("Initialize PhpWeb");
-
+							console.log(vendorFiles);
 							const phpInstance =  new PhpWeb({
-								//	files: vendorFiles
+								files: window.vendorFiles  // HACK window global
 							});
 
 							phpInstance.addEventListener('output',
 								(event) => console.log(event.detail));
 							phpInstance.addEventListener('error',
 								(event) => console.log(event.detail));
+
 							phpInstance.run("HELLO FROM PHP");
+
 							window.php = phpInstance;
 						}
 
