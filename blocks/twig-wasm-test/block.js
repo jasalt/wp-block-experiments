@@ -18,10 +18,6 @@
             return response.text();
         })
         .then(function(templateContent) {
-			// TODO call function published from WASM
-            // template = Twig.twig({
-            //     data: templateContent
-            // });
 			template = templateContent;
         })
         .catch(function(error) {
@@ -43,19 +39,36 @@
 
             if (template) {
                 try {
-                    var renderedHtml = template;
 
-					renderedHtml += attributes.textContent;
-					renderedHtml += attributes.isBold;
+					if (typeof window.PhpWeb === 'undefined'){
+						console.log("WASM module not loaded");
 
-					// TOOD run WASM render here
+						var renderedHtml = template;
+						renderedHtml += attributes.textContent;
+						renderedHtml += attributes.isBold;
 
-				    // .render({
-                    //     attributes: {
-                    //         text: attributes.textContent,
-                    //         is_bold: attributes.isBold
-                    //     }
-                    // });
+					} else {
+						console.log("WASM module loaded");
+						// TODO Init Wasm if not inited
+
+						// if (window.php) {
+						// } else {
+						// 	window.php = new PhpWeb({});
+						// }
+						// .render({
+						//     attributes: {
+						//         text: attributes.textContent,
+						//         is_bold: attributes.isBold
+						//     }
+						// });
+
+
+						var renderedHtml = template;
+						renderedHtml += attributes.textContent;
+						renderedHtml += attributes.isBold;
+
+					}
+
 
                     preview = el('div', {
                         className: 'twigjs-preview',
