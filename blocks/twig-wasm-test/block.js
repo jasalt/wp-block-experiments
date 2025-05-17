@@ -5,6 +5,7 @@
     var PanelBody = components.PanelBody;
     var InspectorControls = blockEditor.InspectorControls;
     var useBlockProps = blockEditor.useBlockProps;
+	var ServerSideRender = wp.serverSideRender;
 
     // Template URL is passed from PHP
     var templateUrl = twigWasmTestBlockData.templateUrl;
@@ -16,6 +17,7 @@
             return response.text();
         })
         .then(function(templateContent) {
+			// TODO call function published from WASM
             template = Twig.twig({
                 data: templateContent
             });
@@ -39,6 +41,7 @@
 
             if (template) {
                 try {
+					// TODO render via Twig in WASM
                     var renderedHtml = template.render({
                         attributes: {
                             text: attributes.textContent,
@@ -77,7 +80,12 @@
                 }),
 
                 // Client-side preview using Twig.js
-                preview
+                // preview
+				// Render preview with PHP
+				el(ServerSideRender, {
+                    block: 'my-plugin/twig-wasm-test-block',
+					attributes: attributes
+                })
             ]);
         },
 

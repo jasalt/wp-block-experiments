@@ -53,12 +53,15 @@ function render_twig_wasm_test_block($attributes) {
     $text = $attributes['textContent'] ?? 'Default text';
     $is_bold = $attributes['isBold'] ?? false;
 
-    $context = Timber::context();
+	$loader = new \Twig\Loader\ArrayLoader([
+        'index' => 'Hello {{ name }}!'
+    ]);
+    $twig = new \Twig\Environment($loader);
 
-    $context['attributes'] = [
+	$context['attributes'] = [
         'text' => $text,
         'is_bold' => $is_bold
     ];
 
-    return Timber::render('template.twig', $context);  // TODO compile to avoid prints before editor renders?
+	return $twig->render('index', ['name' => $text]);
 }
