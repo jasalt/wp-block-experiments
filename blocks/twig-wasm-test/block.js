@@ -7,7 +7,7 @@
     var useBlockProps = blockEditor.useBlockProps;
 
     // Template URL is passed from PHP
-    var templateUrl = twigjsTestBlockData.templateUrl;
+    var templateUrl = twigWasmTestBlockData.templateUrl;
     var template = null;
 
     // Fetch the Twig template
@@ -24,8 +24,8 @@
             console.error('Error loading Twig template:', error);
         });
 
-    blocks.registerBlockType('my-plugin/twigjs-test-block', {
-        title: 'TwigJS Test Block',
+    blocks.registerBlockType('my-plugin/twig-wasm-test-block', {
+        title: 'Twig Wasm Test Block',
         icon: 'text',
         category: 'text',
 
