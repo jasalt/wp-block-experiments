@@ -5,11 +5,11 @@
     var PanelBody = components.PanelBody;
     var InspectorControls = blockEditor.InspectorControls;
     var useBlockProps = blockEditor.useBlockProps;
-    
+
     // Template URL is passed from PHP
     var templateUrl = twigjsTestBlockData.templateUrl;
     var template = null;
-    
+
     // Fetch the Twig template
     fetch(templateUrl)
         .then(function(response) {
@@ -33,10 +33,10 @@
             var attributes = props.attributes;
             var setAttributes = props.setAttributes;
             var blockProps = useBlockProps();
-            
+
             // Render the preview using Twig.js
             var preview = el('div', { className: 'loading-template' }, 'Loading template...');
-            
+
             if (template) {
                 try {
                     var renderedHtml = template.render({
@@ -45,8 +45,8 @@
                             is_bold: attributes.isBold
                         }
                     });
-                    
-                    preview = el('div', { 
+
+                    preview = el('div', {
                         className: 'twigjs-preview',
                         dangerouslySetInnerHTML: { __html: renderedHtml }  // NOTE: no auto-escape
                     });
@@ -75,7 +75,7 @@
                         setAttributes({ textContent: value });
                     }
                 }),
-                
+
                 // Client-side preview using Twig.js
                 preview
             ]);
