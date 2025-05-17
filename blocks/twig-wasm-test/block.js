@@ -12,6 +12,8 @@
     var templateUrl = twigWasmTestBlockData.templateUrl;
     var template = null;
 
+	var vendorFiles = null;
+
     // Fetch the Twig template
     fetch(templateUrl)
         .then(function(response) {
@@ -23,6 +25,20 @@
         .catch(function(error) {
             console.error('Error loading Twig template:', error);
         });
+
+
+	fetch('/wp-content/plugins/wp-block-experiments/vendor-files.json')
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(vendorFiles) {
+			console.log("LOADED VENDOR FILES")
+			vendorFiles = vendorFiles;
+        })
+        .catch(function(error) {
+            console.error('Error loading vendor files:', error);
+        });
+
 
     blocks.registerBlockType('my-plugin/twig-wasm-test-block', {
         title: 'Twig Wasm Test Block',
@@ -54,22 +70,17 @@
 						if (typeof window.php == 'undefined') {
 							console.log("Initialize PhpWeb");
 
-							const response = fetch('/wp-content/plugins/wp-block-experiments/vendor-files.json').then(response => console.log(response.json()));
-							//const vendorData = response.json();
-							//const vendorFiles = Array.isArray(vendorData) ? vendorData : (vendorData ? vendorData : []);
-
-							window.php = new PhpWeb({
-								//files: vendorFiles
+							const phpInstance =  new PhpWeb({
+								//	files: vendorFiles
 							});
 
-
-							php.addEventListener('output',
+							phpInstance.addEventListener('output',
 								(event) => console.log(event.detail));
-							php.addEventListener('error',
+							phpInstance.addEventListener('error',
 								(event) => console.log(event.detail));
-							php.run("HELLO FROM PHP");
+							phpInstance.run("HELLO FROM PHP");
+							window.php = phpInstance;
 						}
-
 
 						// if (window.php) {
 						// } else {
@@ -81,7 +92,6 @@
 						//         is_bold: attributes.isBold
 						//     }
 						// });
-
 
 						var renderedHtml = template;
 						renderedHtml += attributes.textContent;
