@@ -7,36 +7,16 @@ use Timber\Timber;
 
 // Register the block
 function register_twig_wasm_test_block() {
-    // Register Twig.js script from local static directory
-    wp_register_script_module(
-        'php-wasm-library',
-        plugins_url('node_modules/php-wasm/PhpWeb.mjs',
-					dirname(plugin_dir_path(__FILE__))),
-        [],
-        false  // (version)
-    );
-
-	wp_enqueue_script_module(
-		'php-wasm-library',
-		'', [], false);
-
-	// HACK: Register inline JavaScript which block editor executes by convention.
-	//       It simply runs Scittle eval for our main ClojureScript script tag element.
-
 	wp_register_script_module(
         'php-wasm-block-editor-initializer',
 		plugins_url('blocks/twig-wasm-test/wasmInitializer.mjs',
 					dirname(plugin_dir_path(__FILE__))),
-        ['php-wasm-library'],
+        [],
 		filemtime(__FILE__));
 
 	wp_enqueue_script_module(
 		'php-wasm-block-editor-initializer',
-		'', ['php-wasm-library'], false);
-
-	/* wp_add_inline_script('php-wasm-block-editor-initializer',
-	   '(function(){alert("foo"); console.log("ASDF");})();');
-	 */
+		'', [], false);
 
     wp_register_script(
         'twig-wasm-test-block-editor',
