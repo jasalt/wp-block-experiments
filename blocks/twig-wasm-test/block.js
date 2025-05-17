@@ -1,6 +1,5 @@
 (function(blocks, element, blockEditor, components) {
 
-
     var el = element.createElement;
     var TextControl = components.TextControl;
     var ToggleControl = components.ToggleControl;
@@ -12,8 +11,6 @@
     // Template URL is passed from PHP
     var templateUrl = twigWasmTestBlockData.templateUrl;
     var template = null;
-
-
 
     // Fetch the Twig template
     fetch(templateUrl)
