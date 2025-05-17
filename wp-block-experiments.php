@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Scittle WP Block
+Plugin Name: WP Block Experiments
 Description: Demo block made with ClojureScript
 Version: 0.1
 Author: Jarkko Saltiola
