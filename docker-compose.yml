@@ -28,7 +28,7 @@ services:
     volumes:
       - wordpress_data:/var/www/html
       - ./custom-entrypoint.sh:/custom-entrypoint.sh
-      - .:/var/www/html/wp-content/plugins/scittle-wp-block
+      - .:/var/www/html/wp-content/plugins/wp-block-experiments
 
 volumes:
   db_data:

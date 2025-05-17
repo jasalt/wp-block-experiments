@@ -22,7 +22,7 @@ if [ -f "/COMPOSE_INITIALIZED" ]; then
 else
 	echo "Running post-init.sh"
 
-	cd /var/www/html/wp-content/plugins/scittle-wp-block
+	cd /var/www/html/wp-content/plugins/wp-block-experiments
 	composer install
 
 	cd /var/www/html/
@@ -39,7 +39,7 @@ else
 	# Not necessary but added so Apache doesn't make noise on startup
 	echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-	wp plugin activate scittle-wp-block --allow-root
+	wp plugin activate wp-block-experiments --allow-root
 
 	wp post create --post_status=publish --allow-root \
 	   --post_title='Scittle demo post' --post_content='
