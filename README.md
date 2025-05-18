@@ -1,20 +1,41 @@
-# ClojureScript / Phel WP Block experiments
+# WordPress Block experiments with different rendering options
 
-TODO 
-- documentation is in progress
-- blocks/scittle-test works (vanilla php + clojurescript)
-- blocks/phel-scittle-test is 75% in progress, does not render fresh attrs (phel server-side rendering + clojurescript) see README.md in the folder.
+## Demo block
+Block has text box and toggle toggle controls for user editable content and uses similar template for rendering each variation.
+It's controls and rendering look like following:
 
+## Different blocks
 
+Rough overview of current experiments.
+
+| Block name                             | Rendering for web     | Editor controls | Editor preview           | For who / notes                                | Quality      |
+|----------------------------------------|-----------------------|-----------------|--------------------------|------------------------------------------------|--------------|
+| No Build Block (no-build-test)         | SSR PHP               | Vanilla JS      | SSR PHP                  | Mainstream, migratees from ACF Blocks etc.     | Production   |
+| Timber Test Block (timber-test)        | SSR PHP (Twig/Timber) | Vanilla JS      | SSR PHP (Timber/Twig)    | Django templates / Twig / Selmer devs          | Beta         |
+| TwigJS Test Block (twigjs-test)        | SSR PHP (Twig/Timber) | Vanilla JS      | Clientside TwigJS        | Isomorphic / Subset of Twig for editor preview | Alpha        |
+| Twig Wasm Test Block (twig-wasm-test)  | SSR (Twig)            | Vanilla JS      | Clientside PHP-WASM Twig | Isomorphic / Full Twig in WASM                 | Pre-alpha    |
+| Scittle Test Block (scittle-test)      | SSR PHP               | ClojureScript   | Clientside ClojureScript | Scittle / Reagent                              | Alpha        |
+| Phel Scittle Block (phel-scittle-test) | SSR PHP (Phel)        | ClojureScript   | SSR PHP (Phel)           | Isomorphic / Uses different hiccup dialects    | Experimental |
+
+### Quality legend
+
+- Production: good to use as is
+- Beta: Needs some work but not much
+- Alpha: Demo works with some ceveats, needs more work
+- Pre-alpha: Needs lot of work, demo in progress
+- Experimental: demo does not work yet and might lead to issues
+
+# General information
+Section is work in progress..
 ## What is a WordPress block?
-Layout snippet with graphical CMS user interface based on WordPress "Gutenberg" ReactJS editor.
+Layout snippet with graphical editor user interface in WordPress "Gutenberg" ReactJS editor.
 
-Code:
+Saved in serialized format in database `wp_posts` table content column:
+
+```
 <!-- wp:my-plugin/scittle-block {"textContent":"FOO text here","isBold":true} /-->
-Editor view:
-<screenshot>
+```
 
-Javascript editor saves block properties to database.
 PHP renders it on server-side for viewers.
 
 - PEG parser grammar https://github.com/WordPress/gutenberg/tree/trunk/packages/block-serialization-spec-parser
