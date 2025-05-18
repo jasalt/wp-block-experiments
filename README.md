@@ -4,6 +4,9 @@
 Block has text box and toggle toggle controls for user editable content and uses similar template for rendering each variation.
 It's controls and rendering look like following:
 
+![Screenshot of demo block output and editor view](demo.png "Screenshot of demo block output and editor view")
+
+
 ## Different blocks
 
 Rough overview of current experiments.
@@ -24,6 +27,12 @@ Rough overview of current experiments.
 - Alpha: Demo works with some ceveats, needs more work
 - Pre-alpha: Needs lot of work, demo in progress
 - Experimental: demo does not work yet and might lead to issues
+
+# Running development WordPress installation
+
+Start containers with `docker compose up` and access https://localhost:8080.
+Clean WP installation should come up with demo post having Scittle Test Block inserted.
+Admin login https://localhost:8080/wp-admin user: admin password: password
 
 # General information
 Section is work in progress..
