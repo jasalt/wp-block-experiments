@@ -21,14 +21,6 @@ function register_twig_editable_block() {
         filemtime(plugin_dir_path(__FILE__) . 'block.js')
     );
 
-    // Register the template for client-side rendering
-    wp_localize_script(
-        'twig-editable-block-editor',
-        'twigEditableBlockData',
-        [
-            'templateUrl' => plugins_url('template.twig', __FILE__),
-        ]
-    );
 
     register_block_type('my-plugin/twig-editable-block', [
         'editor_script' => 'twig-editable-block-editor',
@@ -41,6 +33,16 @@ function register_twig_editable_block() {
             'isBold' => [
                 'type' => 'boolean',
                 'default' => false
+            ],
+            'twigTemplate' => [
+                'type' => 'string',
+                'default' => '<div class="wp-block-twig-editable-text">
+    {% if attributes.is_bold %}
+        <strong>{{ attributes.text }}</strong>
+    {% else %}
+        <p>{{ attributes.text }}</p>
+    {% endif %}
+</div>'
             ]
         ]
     ]);
@@ -51,9 +53,10 @@ add_action('init', 'register_twig_editable_block');
 function render_twig_editable_block($attributes) {
     $text = $attributes['textContent'] ?? 'Default text';
     $is_bold = $attributes['isBold'] ?? false;
+    $template_content = $attributes['twigTemplate'] ?? '<div>{{ attributes.text }}</div>';
 
-    $loader = new \Twig\Loader\FilesystemLoader([
-        __DIR__
+    $loader = new \Twig\Loader\ArrayLoader([
+        'template' => $template_content
     ]);
 
     $twig = new \Twig\Environment($loader);
@@ -63,5 +66,5 @@ function render_twig_editable_block($attributes) {
         'is_bold' => $is_bold
     ];
 
-    return $twig->render('template.twig', $context);
+    return $twig->render('template', $context);
 }

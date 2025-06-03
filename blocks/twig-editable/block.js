@@ -1,28 +1,12 @@
 (function(blocks, element, blockEditor, components) {
     var el = element.createElement;
     var TextControl = components.TextControl;
+    var TextareaControl = components.TextareaControl;
     var ToggleControl = components.ToggleControl;
     var PanelBody = components.PanelBody;
     var InspectorControls = blockEditor.InspectorControls;
     var useBlockProps = blockEditor.useBlockProps;
 
-    // Template URL is passed from PHP
-    var templateUrl = twigEditableBlockData.templateUrl;
-    var template = null;
-
-    // Fetch the Twig template
-    fetch(templateUrl)
-        .then(function(response) {
-            return response.text();
-        })
-        .then(function(templateContent) {
-            template = Twig.twig({
-                data: templateContent
-            });
-        })
-        .catch(function(error) {
-            console.error('Error loading Twig template:', error);
-        });
 
     blocks.registerBlockType('my-plugin/twig-editable-block', {
         title: 'Twig Editable Block',
@@ -37,8 +21,12 @@
             // Render the preview using Twig.js
             var preview = el('div', { className: 'loading-template' }, 'Loading template...');
 
-            if (template) {
+            if (attributes.twigTemplate) {
                 try {
+                    var template = Twig.twig({
+                        data: attributes.twigTemplate
+                    });
+
                     var renderedHtml = template.render({
                         attributes: {
                             text: attributes.textContent,
@@ -52,7 +40,7 @@
                     });
                 } catch (error) {
                     console.error('Error rendering Twig template:', error);
-                    preview = el('div', { className: 'template-error' }, 'Error rendering template');
+                    preview = el('div', { className: 'template-error' }, 'Error rendering template: ' + error.message);
                 }
             }
 
@@ -65,6 +53,16 @@
                             onChange: function(value) {
                                 setAttributes({ isBold: value });
                             }
+                        })
+                    ),
+                    el(PanelBody, { title: 'Template Settings' },
+                        el(TextareaControl, {
+                            label: 'Twig Template',
+                            value: attributes.twigTemplate,
+                            onChange: function(value) {
+                                setAttributes({ twigTemplate: value });
+                            },
+                            rows: 10
                         })
                     )
                 ),
