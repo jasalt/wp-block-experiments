@@ -90,12 +90,26 @@
                         data: attributes.twigTemplate
                     });
 
+                    // Determine boundValue for preview
+                    var previewBoundValue = '';
+                    if (attributes.metadata && attributes.metadata.bindings && attributes.metadata.bindings.boundValue) {
+                        var binding = attributes.metadata.bindings.boundValue;
+                        var source = binding.source || '';
+                        var property = (binding.args && binding.args.property) || '';
+                        
+                        if (source && property) {
+                            previewBoundValue = '[Preview: ' + source + ' → ' + property + ']';
+                        } else if (source) {
+                            previewBoundValue = '[Preview: ' + source + ']';
+                        }
+                    }
+
                     var renderedHtml = template.render({
                         attributes: {
                             text: attributes.textContent,
                             is_bold: attributes.isBold
                         },
-                        boundValue: attributes.boundValue || ''
+                        boundValue: previewBoundValue
                     });
 
                     preview = el('div', {
