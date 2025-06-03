@@ -3,7 +3,6 @@
  * Plugin Name: TwigJS Test Block
  */
 
-use Timber\Timber;
 
 // Register the block
 function register_twigjs_test_block() {
@@ -48,17 +47,21 @@ function register_twigjs_test_block() {
 }
 add_action('init', 'register_twigjs_test_block');
 
-// Server-side rendering with Timber
+// Server-side rendering with Twig
 function render_twigjs_test_block($attributes) {
     $text = $attributes['textContent'] ?? 'Default text';
     $is_bold = $attributes['isBold'] ?? false;
-    
-    $context = Timber::context();
-    
+
+    $loader = new \Twig\Loader\FilesystemLoader([
+        __DIR__
+    ]);
+
+    $twig = new \Twig\Environment($loader);
+
     $context['attributes'] = [
         'text' => $text,
         'is_bold' => $is_bold
     ];
 
-    return Timber::compile('template.twig', $context);  // TODO compile to avoid prints before editor renders?
+    return $twig->render('template.twig', $context);
 }
