@@ -3,6 +3,7 @@
     var TextControl = components.TextControl;
     var TextareaControl = components.TextareaControl;
     var ToggleControl = components.ToggleControl;
+    var ComboboxControl = components.ComboboxControl;
     var PanelBody = components.PanelBody;
     var InspectorControls = blockEditor.InspectorControls;
     var useBlockProps = blockEditor.useBlockProps;
@@ -18,6 +19,68 @@
             var setAttributes = props.setAttributes;
             var blockProps = useBlockProps();
 
+            // Get available binding sources
+            var getBindingSources = function() {
+                try {
+                    if (wp.blocks && wp.blocks.getBlockBindingsSources) {
+                        var bindingSources = wp.blocks.getBlockBindingsSources();
+                        return Object.keys(bindingSources).map(function(sourceKey) {
+                            var source = bindingSources[sourceKey];
+                            return {
+                                value: sourceKey,
+                                label: source.label || sourceKey
+                            };
+                        });
+                    }
+                } catch (e) {
+                    console.warn('Could not access block bindings sources:', e);
+                }
+                return [];
+            };
+
+
+            // Helper function for updating bindings
+            var updateBinding = function(key, value) {
+                var newMetadata = attributes.metadata || {};
+                newMetadata.bindings = newMetadata.bindings || {};
+                newMetadata.bindings.boundValue = newMetadata.bindings.boundValue || {};
+
+                if (key === 'source') {
+                    newMetadata.bindings.boundValue.source = value;
+                } else if (key === 'property') {
+                    if (value) {
+                        newMetadata.bindings.boundValue.args = newMetadata.bindings.boundValue.args || {};
+                        newMetadata.bindings.boundValue.args.property = value;
+                    } else {
+                        // Remove args if property is empty
+                        if (newMetadata.bindings.boundValue.args) {
+                            delete newMetadata.bindings.boundValue.args.property;
+                            if (Object.keys(newMetadata.bindings.boundValue.args).length === 0) {
+                                delete newMetadata.bindings.boundValue.args;
+                            }
+                        }
+                    }
+                }
+
+                setAttributes({ metadata: newMetadata });
+            };
+
+            var getBindingValue = function(key) {
+                if (!attributes.metadata || !attributes.metadata.bindings || !attributes.metadata.bindings.boundValue) {
+                    return '';
+                }
+                if (key === 'source') {
+                    return attributes.metadata.bindings.boundValue.source || '';
+                }
+                if (key === 'property') {
+                    return (attributes.metadata.bindings.boundValue.args && attributes.metadata.bindings.boundValue.args.property) || '';
+                }
+                return '';
+            };
+
+            var bindingSources = getBindingSources();
+            var currentSource = getBindingValue('source');
+
             // Render the preview using Twig.js
             var preview = el('div', { className: 'loading-template' }, 'Loading template...');
 
@@ -31,7 +94,8 @@
                         attributes: {
                             text: attributes.textContent,
                             is_bold: attributes.isBold
-                        }
+                        },
+                        boundValue: attributes.boundValue || ''
                     });
 
                     preview = el('div', {
@@ -55,9 +119,31 @@
                             }
                         })
                     ),
+                    el(PanelBody, { title: 'Block Bindings' },
+                        el(ComboboxControl, {
+                            label: 'Binding Source',
+                            help: 'Binding source for boundValue variable',
+                            value: currentSource,
+                            options: bindingSources,
+                            onChange: function(value) {
+                                updateBinding('source', value);
+                            },
+                            allowReset: true
+                        }),
+
+                        el(TextControl, {
+                            label: 'Binding Property',
+                            help: 'Property for binding (e.g., content, title, excerpt)',
+                            value: getBindingValue('property'),
+                            onChange: function(value) {
+                                updateBinding('property', value);
+                            }
+                        })
+                    ),
                     el(PanelBody, { title: 'Template Settings' },
                         el(TextareaControl, {
                             label: 'Twig Template',
+                            help: 'Use {{ boundValue }} to access the bound data',
                             value: attributes.twigTemplate,
                             onChange: function(value) {
                                 setAttributes({ twigTemplate: value });

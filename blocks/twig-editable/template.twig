@@ -1,7 +1,11 @@
+<!-- THIS IS NOT RENDERED BY THE BLOCK, JUST EXAMPLE -->
 <div class="wp-block-twig-editable-text">
     {% if attributes.is_bold %}
         <strong>{{ attributes.text }}</strong>
     {% else %}
         <p>{{ attributes.text }}</p>
+    {% endif %}
+    {% if boundValue %}
+        <div class="bound-content">{{ boundValue }}</div>
     {% endif %}
 </div>
