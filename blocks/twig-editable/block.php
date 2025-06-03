@@ -50,7 +50,7 @@ function register_twig_editable_block() {
             ],
             'metadata' => [
                 'type' => 'object',
-                'default' => []
+                'default' => (object) []
             ]
         ],
         'supports' => [
@@ -72,15 +72,15 @@ function render_twig_editable_block($attributes, $content, $block) {
     // Process block bindings if they exist
     if (isset($block->parsed_block['attrs']['metadata']['bindings'])) {
         $bindings = $block->parsed_block['attrs']['metadata']['bindings'];
-        
+
         // Handle boundValue binding
         if (isset($bindings['boundValue'])) {
             $binding_source = $bindings['boundValue']['source'];
             $binding_args = isset($bindings['boundValue']['args']) ? $bindings['boundValue']['args'] : [];
-            
+
             $registry = WP_Block_Bindings_Registry::get_instance();
             $source = $registry->get_registered($binding_source);
-            
+
             if ($source) {
                 $binding_value = $source->get_value($binding_args, $block, 'boundValue');
                 if (is_array($binding_value) && isset($binding_value['content'])) {

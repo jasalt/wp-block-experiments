@@ -41,7 +41,8 @@
 
             // Helper function for updating bindings
             var updateBinding = function(key, value) {
-                var newMetadata = attributes.metadata || {};
+                // Create a deep copy to avoid mutation issues
+                var newMetadata = JSON.parse(JSON.stringify(attributes.metadata || {}));
                 newMetadata.bindings = newMetadata.bindings || {};
                 newMetadata.bindings.boundValue = newMetadata.bindings.boundValue || {};
 
