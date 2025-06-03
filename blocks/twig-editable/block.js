@@ -7,6 +7,7 @@
     var PanelBody = components.PanelBody;
     var InspectorControls = blockEditor.InspectorControls;
     var useBlockProps = blockEditor.useBlockProps;
+    var ServerSideRender = wp.serverSideRender;
 
 
     blocks.registerBlockType('my-plugin/twig-editable-block', {
@@ -82,46 +83,6 @@
             var bindingSources = getBindingSources();
             var currentSource = getBindingValue('source');
 
-            // Render the preview using Twig.js
-            var preview = el('div', { className: 'loading-template' }, 'Loading template...');
-
-            if (attributes.twigTemplate) {
-                try {
-                    var template = Twig.twig({
-                        data: attributes.twigTemplate
-                    });
-
-                    // Determine boundValue for preview
-                    var previewBoundValue = '';
-                    if (attributes.metadata && attributes.metadata.bindings && attributes.metadata.bindings.boundValue) {
-                        var binding = attributes.metadata.bindings.boundValue;
-                        var source = binding.source || '';
-                        var property = (binding.args && binding.args.property) || '';
-                        
-                        if (source && property) {
-                            previewBoundValue = '[Preview: ' + source + ' → ' + property + ']';
-                        } else if (source) {
-                            previewBoundValue = '[Preview: ' + source + ']';
-                        }
-                    }
-
-                    var renderedHtml = template.render({
-                        attributes: {
-                            text: attributes.textContent,
-                            is_bold: attributes.isBold
-                        },
-                        boundValue: previewBoundValue
-                    });
-
-                    preview = el('div', {
-                        className: 'twigjs-preview',
-                        dangerouslySetInnerHTML: { __html: renderedHtml }  // NOTE: no auto-escape
-                    });
-                } catch (error) {
-                    console.error('Error rendering Twig template:', error);
-                    preview = el('div', { className: 'template-error' }, 'Error rendering template: ' + error.message);
-                }
-            }
 
             return el('div', blockProps, [
                 el(InspectorControls, { key: 'inspector' },
@@ -175,8 +136,11 @@
                     }
                 }),
 
-                // Client-side preview using Twig.js
-                preview
+                // Server-side preview with PHP/Twig
+                el(ServerSideRender, {
+                    block: 'my-plugin/twig-editable-block',
+                    attributes: attributes
+                })
             ]);
         },
 
