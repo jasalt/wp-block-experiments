@@ -16,3 +16,5 @@ require $projectRootDir . 'blocks/phel-scittle-test/phel-scittle-test.php';
 require $projectRootDir . 'blocks/timber-test/timber-test.php';
 require $projectRootDir . 'blocks/twigjs-test/twigjs-test.php';
 require $projectRootDir . 'blocks/twig-wasm-test/twig-wasm-test.php';
+
+require $projectRootDir . 'blocks/twig-editable/block.php';

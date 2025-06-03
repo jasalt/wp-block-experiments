@@ -15,7 +15,8 @@ Rough overview of current experiments.
 |----------------------------------------|-----------------------|-----------------|--------------------------|------------------------------------------------|--------------|
 | No Build Block (no-build-test)         | SSR PHP               | Vanilla JS      | SSR PHP                  | Mainstream, migratees from ACF Blocks etc.     | Production   |
 | Timber Test Block (timber-test)        | SSR PHP (Twig/Timber) | Vanilla JS      | SSR PHP (Timber/Twig)    | Django templates / Twig / Selmer devs          | Beta         |
-| TwigJS Test Block (twigjs-test)        | SSR PHP (Twig/Timber) | Vanilla JS      | Clientside TwigJS        | Isomorphic / Subset of Twig for editor preview | Alpha        |
+| TwigJS Test Block (twigjs-test)        | SSR PHP (Twig)        | Vanilla JS      | Clientside TwigJS        | Isomorphic / Subset of Twig for editor preview | Alpha        |
+| '- Twig Editable Block (twig-editable) | SSR PHP (Twig)        | Vanilla JS      | Clientside TwigJS        | Twig template as block attribute               | Experimental |
 | Twig Wasm Test Block (twig-wasm-test)  | SSR (Twig)            | Vanilla JS      | Clientside PHP-WASM Twig | Isomorphic / Full Twig in WASM                 | Pre-alpha    |
 | Scittle Test Block (scittle-test)      | SSR PHP               | ClojureScript   | Clientside ClojureScript | Scittle / Reagent                              | Alpha        |
 | Phel Scittle Block (phel-scittle-test) | SSR PHP (Phel)        | ClojureScript   | SSR PHP (Phel)           | Isomorphic / Uses different hiccup dialects    | Experimental |
